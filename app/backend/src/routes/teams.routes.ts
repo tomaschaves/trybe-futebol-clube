@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', async (_req: Request, res: Response) => teamController.getAllTeams(_req, res));
 
-// router.get('/:id', (req: Request, res: Response) => bookController.getBookById(req, res));
+router.get('/:id', (req: Request, res: Response) => teamController.getTeamById(req, res));
 
 // router.post(
 //   '/',

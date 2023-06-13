@@ -17,11 +17,11 @@ export default class TeamService {
     return { status: 'SUCCESSFUL', data: allTeams };
   }
 
-  // public async getBookById(id: number): Promise<ServiceResponse<IBook>> {
-  //   const book = await this.bookModel.findById(id);
-  //   if (!book) return { status: 'NOT_FOUND', data: { message: `Book ${id} not found` } };
-  //   return { status: 'SUCCESSFUL', data: book };
-  // }
+  public async getTeamById(id: number): Promise<ServiceResponse<Teams>> {
+    const team = await this.teamModel.findById(id);
+    if (!team) return { status: 'NOT FOUND', data: { message: `Book ${id} not found` } };
+    return { status: 'SUCCESSFUL', data: team };
+  }
 
   // public async createBook(book: NewEntity<IBook>): Promise<ServiceResponse<IBook>> {
   //   const newBook = await this.bookModel.create(book);

@@ -5,18 +5,18 @@ import SequelizeTeam from '../database/models/SequelizeTeam';
 export default class TeamModel {
   private model = SequelizeTeam;
 
+  async findById(id: Teams['id']): Promise<Teams | null> {
+    const dbData = await this.model.findByPk(id);
+    if (dbData == null) return null;
+    const { teamName }: Teams = dbData;
+
+    return { id, teamName };
+  }
+
   async findAll(): Promise<Teams[]> {
     const dbData = await this.model.findAll();
     return dbData;
   }
-
-  // async findById(id: IBook['id']): Promise<IBook | null> {
-  //   const dbData = await this.model.findByPk(id);
-  //   if (dbData == null) return null;
-
-  //   const { title, price, author, isbn }: IBook = dbData;
-  //   return { id, title, price, author, isbn };
-  // }
 
   // async create(data: NewEntity<IBook>): Promise<IBook> {
   //   const dbData = await this.model.create(data);
