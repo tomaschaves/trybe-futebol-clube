@@ -1,7 +1,7 @@
-// export default interface Teams {
-//   username: string,
-//   title: string,
-//   price: number,
-//   author: string,
-//   isbn: string,
-// }
+export default interface Users {
+  id: number,
+  username: string,
+  role: string,
+  email: string,
+  password: string,
+}

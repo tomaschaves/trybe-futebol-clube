@@ -1,7 +1,8 @@
-// export default interface Teams {
-//   id: number,
-//   title: string,
-//   price: number,
-//   author: string,
-//   isbn: string,
-// }
+export default interface Matches {
+  id: number,
+  homeTeamId: number,
+  homeTeamGoals: number,
+  awayTeamId: number,
+  awayTeamGoals: number,
+  inProgress: boolean,
+}
