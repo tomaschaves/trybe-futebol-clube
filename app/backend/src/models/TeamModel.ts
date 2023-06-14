@@ -1,4 +1,4 @@
-import { Teams } from '../Interfaces/Teams';
+import Teams from '../Interfaces/Teams';
 import SequelizeTeam from '../database/models/SequelizeTeam';
 // import { IBook } from '../interfaces/books/IBook';
 
