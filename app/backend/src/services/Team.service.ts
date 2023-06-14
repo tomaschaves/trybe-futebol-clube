@@ -1,50 +1,19 @@
-// import { NewEntity } from '../interfaces';
-// import BookModel from '../models/';
-// import { IBook } from '../interfaces/books/IBook';
-import Teams from '../Interfaces/Teams';
-import { /* ServiceMessage, */ ServiceResponse } from '../Interfaces/ServiceResponse';
-import { ITeamModel } from '../Interfaces/TeamModel';
-import TeamModel from '../models/TeamModel';
+import TeamModel from "../database/models/SequelizeTeam";
 
-export default class TeamService {
-  constructor(
-    private teamModel: ITeamModel = new TeamModel(),
-  ) { }
+const getAllTeams = async () => {
+  const teams = await TeamModel.findAll();
 
-  public async getAllTeams(): Promise<ServiceResponse<Teams[]>> {
-    const allTeams = await this.teamModel.findAll();
+  if (teams.length === 0) return { type: 'NOT FOUND', message: 'Teams not found' };
+  
+  return { type: 'SUCCESSFUL', message: teams };
+};
 
-    return { status: 'SUCCESSFUL', data: allTeams };
-  }
-
-  public async getTeamById(id: number): Promise<ServiceResponse<Teams>> {
-    const team = await this.teamModel.findById(id);
-    if (!team) return { status: 'NOT FOUND', data: { message: `Team ${id} not found` } };
-    return { status: 'SUCCESSFUL', data: team };
-  }
-
-  // public async createBook(book: NewEntity<IBook>): Promise<ServiceResponse<IBook>> {
-  //   const newBook = await this.bookModel.create(book);
-  //   return { status: 'SUCCESSFUL', data: newBook };
-  // }
-
-  // public async updateBook(id: number, book: IBook): Promise<ServiceResponse<ServiceMessage>> {
-  //   const bookFound = await this.bookModel.findById(id);
-  //   if (!bookFound) return { status: 'NOT_FOUND', data: { message: `Team ${id} not found` } };
-
-  //   const updatedBook = await this.bookModel.update(id, book);
-  //   if (!updatedBook) {
-  //     return { status: 'CONFLICT',
-  //       data: { message: `There are no updates to perform in Book ${id}` } };
-  //   }
-  //   return { status: 'SUCCESSFUL', data: { message: 'Book updated' } };
-  // }
-
-  // public async deleteBook(id: number): Promise<ServiceResponse<ServiceMessage>> {
-  //   const bookFound = await this.bookModel.findById(id);
-  //   if (!bookFound) return { status: 'NOT_FOUND', data: { message: `Team ${id} not found` } };
-
-  //   await this.bookModel.delete(id);
-  //   return { status: 'SUCCESSFUL', data: { message: 'Book deleted' } };
-  // }
+const getTeamById = async (id: number) => {
+  const team = await TeamModel.findByPk(id);
+  
+  if (!team) return { type: 'NOT FOUND', message: 'Team not found' };
+  
+  return { type: 'SUCCESSFUL', message: team };
 }
+
+export default { getAllTeams, getTeamById };

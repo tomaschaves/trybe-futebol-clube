@@ -1,14 +1,12 @@
-import { Request, Router, Response } from 'express';
-import TeamController from '../controllers/teams.controller';
+import { Router } from 'express';
+import teamController from '../controllers/teams.controller';
 // // import Validations from '../middlewares/Validations';
-
-const teamController = new TeamController();
 
 const router = Router();
 
-router.get('/', async (_req: Request, res: Response) => teamController.getAllTeams(_req, res));
+router.get('/', teamController.getAllTeams);
 
-router.get('/:id', (req: Request, res: Response) => teamController.getTeamById(req, res));
+router.get('/:id', teamController.getTeamById);
 
 // router.post(
 //   '/',

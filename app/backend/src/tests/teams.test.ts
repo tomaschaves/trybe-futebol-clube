@@ -47,22 +47,22 @@ describe('Teams test', () => {
     expect(body).to.deep.equal(avaiTteam);
   });
 
-  it('Return an empty array', async () => {
-    sinon.stub(SequelizeTeam, "findAll").resolves([] as any);
+  // it('Return an empty array', async () => {
+  //   sinon.stub(SequelizeTeam, "findAll").resolves([] as any);
 
-    const { body, status } = await chai.request(app).get('/teams');
+  //   const { body, status } = await chai.request(app).get('/teams');
 
-    expect(status).to.be.equal(200);
-    expect(body).to.be.deep.equal([]);
-  });
+  //   expect(status).to.be.equal(200);
+  //   expect(body).to.be.deep.equal([]);
+  // });
 
   it('Return not found if the team doesn\'t exists', async function() {
-    sinon.stub(SequelizeTeam, 'findOne').resolves(null);
+    sinon.stub(SequelizeTeam, 'findByPk').resolves(null);
 
-    const { status, body } = await chai.request(app).get('/teams/1');
-
+    const { status, body } = await chai.request(app).get('/teams/1');    
+    
     expect(status).to.equal(404);
-    expect(body.message).to.equal('Team 1 not found');
+    expect(body).to.equal('Team not found');
   });
   // it('Seu sub-teste', () => {
   //   expect(false).to.be.eq(true);

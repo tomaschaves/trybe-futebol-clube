@@ -1,56 +1,17 @@
 import { Request, Response } from 'express';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
-import TeamService from '../services/Team.service';
+import teamService from '../services/Team.service';
 // import mapStatusHTTP from '../utils/mapStatusHTTP';
 
-export default class TeamController {
-  constructor(
-    private teamService = new TeamService(),
-  ) { }
-
-  public async getAllTeams(_req: Request, res: Response) {
-    const serviceResponse = await this.teamService.getAllTeams();
-
-    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-  }
-
-  public async getTeamById(req: Request, res: Response) {
-    const { id } = req.params;
-
-    const serviceResponse = await this.teamService.getTeamById(Number(id));
-
-    if (serviceResponse.status !== 'SUCCESSFUL') {
-      return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-    }
-
-    res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-  }
-
-  // public async createBook(req: Request, res: Response) {
-  //   const serviceResponse = await this.bookService.createBook(req.body);
-  //   res.status(201).json(serviceResponse.data);
-  // }
-
-  // public async updateBook(req: Request, res: Response): Promise<Response> {
-  //   const id = Number(req.params.id);
-  //   const book = req.body;
-  //   const serviceResponse = await this.bookService.updateBook(id, book);
-
-  //   if (serviceResponse.status !== 'SUCCESSFUL') {
-  //     return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-  //   }
-
-  //   return res.status(200).json(serviceResponse.data);
-  // }
-
-  // public async deleteBook(req: Request, res: Response): Promise<Response> {
-  //   const id = Number(req.params.id);
-  //   const serviceResponse = await this.bookService.deleteBook(id);
-
-  //   if (serviceResponse.status !== 'SUCCESSFUL') {
-  //     return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-  //   }
-
-  //   return res.status(200).json(serviceResponse.data);
-  // }
+const getAllTeams = async (_req: Request, res: Response): Promise<Response> => {
+  const { type, message } = await teamService.getAllTeams();
+  return res.status(mapStatusHTTP(type)).json(message);
 }
+
+const getTeamById = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.params;
+  const { type, message } = await teamService.getTeamById(Number(id));
+  return res.status(mapStatusHTTP(type)).json(message);
+}
+
+export default { getAllTeams, getTeamById };
