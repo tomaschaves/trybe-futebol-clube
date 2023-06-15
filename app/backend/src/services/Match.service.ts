@@ -38,4 +38,15 @@ const finishMatch = async (id: number) => {
   return { type: 'SUCCESSFUL', message: { message: 'Finished' } };
 };
 
-export default { getAllMatches, getAllMatchesInProgress, finishMatch };
+const editMatch = async (id: number, body: { homeTeamGoals: number, awayTeamGoals: number }) => {
+  await MatchModel.update(
+    {
+      homeTeamGoals: body.homeTeamGoals,
+      awayTeamGoals: body.awayTeamGoals,
+    },
+    { where: { id } },
+  );
+  return { type: 'SUCCESSFUL', message: { message: 'Updated!' } };
+};
+
+export default { getAllMatches, getAllMatchesInProgress, finishMatch, editMatch };

@@ -25,4 +25,10 @@ const finishMatch = async (req: Request, res: Response): Promise<Response> => {
   return res.status(mapStatusHTTP(type)).json(message);
 };
 
-export default { getAllMatches, finishMatch };
+const editMatch = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.params;
+  const { type, message } = await matchService.editMatch(Number(id), req.body);
+  return res.status(mapStatusHTTP(type)).json(message);
+};
+
+export default { getAllMatches, finishMatch, editMatch };
