@@ -15,4 +15,19 @@ const getAllMatches = async () => {
   return { type: 'SUCCESSFUL', message: { matches } };
 };
 
-export default { getAllMatches };
+const getAllMatchesInProgress = async (status: boolean) => {
+  const matches = await MatchModel
+    .findAll(
+      { include: [
+        { model: SequelizeTeam, as: 'homeTeam', attributes: { exclude: ['id'] } },
+        { model: SequelizeTeam, as: 'awayTeam', attributes: { exclude: ['id'] } },
+      ],
+      where: { inProgress: status },
+      attributes:
+          { exclude: ['home_team_id', 'away_team_id'] },
+      },
+    );
+  return { type: 'SUCCESSFUL', message: { matches } };
+};
+
+export default { getAllMatches, getAllMatchesInProgress };
