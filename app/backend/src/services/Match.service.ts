@@ -30,4 +30,12 @@ const getAllMatchesInProgress = async (status: boolean) => {
   return { type: 'SUCCESSFUL', message: { matches } };
 };
 
-export default { getAllMatches, getAllMatchesInProgress };
+const finishMatch = async (id: number) => {
+  await MatchModel.update(
+    { inProgress: false },
+    { where: { id } },
+  );
+  return { type: 'SUCCESSFUL', message: { message: 'Finished' } };
+};
+
+export default { getAllMatches, getAllMatchesInProgress, finishMatch };
