@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../auth/token';
-import MatchModel from '../database/models/SequelizeMatches';
 import TeamModel from '../database/models/SequelizeTeam';
 
 const loginValidation = (req: Request, res: Response, next: NextFunction) => {
