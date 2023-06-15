@@ -27,13 +27,9 @@ const tokenValidation = (req: Request, res: Response, next: NextFunction) => {
     if (!authorization) {
       return res.status(401).json({ message: 'Token not found' });
     }
-
-    if (authorization !== undefined) {
-      const isValidToken = verifyToken(authorization);
-      res.locals.user = isValidToken;
-
-      return next();
-    }
+    const isValidToken = verifyToken(authorization);
+    res.locals.user = isValidToken;
+    return next();
   } catch (error) {
     res.status(401).json({ message: 'Token must be a valid token' });
   }

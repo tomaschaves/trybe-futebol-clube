@@ -14,6 +14,12 @@ export default {
         field: 'home_team_id',
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'teams',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       homeTeamGoals: {
         field: 'home_team_goals',
@@ -24,6 +30,12 @@ export default {
         field: 'away_team_id',
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'teams',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       awayTeamGoals: {
         field: 'away_team_goals',
