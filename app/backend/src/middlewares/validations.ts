@@ -38,9 +38,10 @@ const tokenValidation = (req: Request, res: Response, next: NextFunction) => {
 
 const teamsValidation = async (req: Request, res: Response, next: NextFunction) => {
   const { homeTeamId, awayTeamId } = req.body;
+  const teamsInsertion = [homeTeamId, awayTeamId];
+
   const responseFromDB = await TeamModel.findAll();
   const allTeamsFromDB = responseFromDB.map((team) => team.dataValues.id);
-  const teamsInsertion = [homeTeamId, awayTeamId];
   const containTeams = teamsInsertion.every((team) => allTeamsFromDB.includes(Number(team)));
 
   if (homeTeamId === awayTeamId) {
