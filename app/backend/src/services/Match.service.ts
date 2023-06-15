@@ -49,4 +49,15 @@ const editMatch = async (id: number, body: { homeTeamGoals: number, awayTeamGoal
   return { type: 'SUCCESSFUL', message: { message: 'Updated!' } };
 };
 
-export default { getAllMatches, getAllMatchesInProgress, finishMatch, editMatch };
+const registerMatch = async (
+  homeTeamId: number,
+  awayTeamId: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+) => {
+  const { dataValues } = await MatchModel
+    .create({ inProgress: true, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals });
+  return { type: 'CREATED', message: dataValues };
+};
+
+export default { getAllMatches, getAllMatchesInProgress, finishMatch, editMatch, registerMatch };

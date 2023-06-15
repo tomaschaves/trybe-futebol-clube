@@ -7,5 +7,11 @@ const router = Router();
 router.get('/', matchController.getAllMatches);
 router.patch('/:id/finish', validations.tokenValidation, matchController.finishMatch);
 router.patch('/:id', validations.tokenValidation, matchController.editMatch);
+router.post(
+  '/',
+  validations.tokenValidation,
+  validations.teamsValidation,
+  matchController.registerMatch,
+);
 
 export default router;

@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../auth/token';
+import MatchModel from '../database/models/SequelizeMatches';
+import TeamModel from '../database/models/SequelizeTeam';
 
 const loginValidation = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
@@ -35,4 +37,24 @@ const tokenValidation = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { loginValidation, tokenValidation };
+const teamsValidation = async (req: Request, res: Response, next: NextFunction) => {
+  const { homeTeamId, awayTeamId } = req.body;
+  const responseFromDB = await TeamModel.findAll();
+  const allTeamsFromDB = responseFromDB.map((team) => team.dataValues.id);
+  const teamsInsertion = [homeTeamId, awayTeamId];
+  const containTeams = teamsInsertion.every((team) => allTeamsFromDB.includes(Number(team)));
+
+  if (homeTeamId === awayTeamId) {
+    return res.status(422)
+      .json({ message: 'It is not possible to create a match with two equal teams' });
+  }
+
+  if (!containTeams) {
+    return res.status(404)
+      .json({ message: 'There is no team with such id!' });
+  }
+
+  return next();
+};
+
+export default { loginValidation, tokenValidation, teamsValidation };

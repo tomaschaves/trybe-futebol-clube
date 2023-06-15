@@ -31,4 +31,11 @@ const editMatch = async (req: Request, res: Response): Promise<Response> => {
   return res.status(mapStatusHTTP(type)).json(message);
 };
 
-export default { getAllMatches, finishMatch, editMatch };
+const registerMatch = async (req: Request, res: Response): Promise<Response> => {
+  const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+  const { type, message } = await matchService
+    .registerMatch(homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals);
+  return res.status(mapStatusHTTP(type)).json(message);
+};
+
+export default { getAllMatches, finishMatch, editMatch, registerMatch };
