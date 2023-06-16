@@ -133,15 +133,13 @@ const getEficiency = (homeTeamId: number, allMatchesData: matchDetails[]) => {
 };
 
 const sortResponse = (object: responseType[]) => {
-  console.log(object);
-
   object.sort((a, b) => {
     // Sort by victories
     const victoryCount = b.totalVictories - a.totalVictories;
     if (victoryCount) return victoryCount;
 
     // If there is a tie, sort by goals
-    const goalsCount = b.goalsBalance - a.goalsOwn;
+    const goalsCount = b.goalsBalance - a.goalsBalance;
     if (goalsCount) return goalsCount;
 
     const goalsFavorCount = b.goalsFavor - a.goalsFavor;

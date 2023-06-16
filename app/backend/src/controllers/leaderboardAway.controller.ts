@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import leaderboardService from '../services/Leaderboard.service';
+import leaderboardService from '../services/LeaderboardAway.service';
 import MatchService from '../services/Match.service';
 
 const getHomeMatchesPoints = async (req: Request, res: Response): Promise<Response> => {
