@@ -141,10 +141,9 @@ const getEficiency = (teamId: number, allMatchesData: matchDetails[]) => {
   const allGames = allMatchesData
     .filter((match) => match.awayTeamId === teamId || match.homeTeamId === teamId);
   const totalGames = allGames.length;
-  console.log("🚀 ~ file: Leaderboard.service.ts:144 ~ getEficiency ~ totalGames:", allGames)
-  
+
   let sumPoints = 0;
-  
+
   allGames.forEach((match) => {
     if ((match.awayTeamId === teamId && match.awayTeamGoals > match.homeTeamGoals)
       || (match.homeTeamId === teamId && match.homeTeamGoals > match.awayTeamGoals)) {
@@ -155,9 +154,7 @@ const getEficiency = (teamId: number, allMatchesData: matchDetails[]) => {
       sumPoints += 1;
     }
   });
-  
-  console.log("🚀 ~ file: Leaderboard.service.ts:147 ~ getEficiency ~ sumPoints:", teamId, sumPoints)
-  
+
   const efficiency = ((sumPoints / (totalGames * 3)) * 100);
   return Number(efficiency.toFixed(2));
 };
