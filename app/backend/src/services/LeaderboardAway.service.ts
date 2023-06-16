@@ -134,6 +134,9 @@ const getEficiency = (awayTeamId: number, allMatchesData: matchDetails[]) => {
 
 const sortResponse = (object: responseType[]) => {
   object.sort((a, b) => {
+    // Sort by points
+    const pointsCount = b.totalPoints - a.totalPoints;
+    if (pointsCount) return pointsCount;
     // Sort by victories
     const victoryCount = b.totalVictories - a.totalVictories;
     if (victoryCount) return victoryCount;
